@@ -14,8 +14,10 @@ var topics = [
 //Copied from class activity 01/working-movie-app
 function displayAnimalInfo() {
 
-  var animal = $(this).attr("data-name");
-  var queryURL = "https://api.giphy.com/v1/stickers/random?api_key=atua7zCNwm7ymM7oDHt48SXJWyNIzrT9&tag=" + animal + "&limit=10&offset=10&rating=G";
+  // var animal = $(this).attr("data-name");
+  var i=0; 
+  for(i=0; i<topics.length; i++) {
+  var queryURL = "https://api.giphy.com/v1/stickers/random?api_key=atua7zCNwm7ymM7oDHt48SXJWyNIzrT9&tag=" + topics[i] + "&limit=10&offset=10&rating=G";
 
     $.ajax({
       url: queryURL,
@@ -36,8 +38,8 @@ function displayAnimalInfo() {
     animalImage.attr("alt", "animal image");
     //https://gist.github.com/alex-soto/6b8f0654ff1dbaffeac2dc55ba8ca5d1
     animalImage.attr({
-      "data-still": animal.images.animal_still.url,
-      "data-animate": animal.images.original.url,
+       "data-still": imageUrl + "_s.gif",
+      // "data-animate": animal.images.original.url,
       "data-state": "still",
       "class": "gif"
     });
@@ -46,8 +48,16 @@ function displayAnimalInfo() {
 
     $("#images").prepend(animalImage);
 
+    var rating = response.Rated;
+
+    // Creating an element to have the rating displayed
+    var pOne = $("<p>").text("Rating: " + rating);
+
+    // Displaying the rating
+  animalImage.prepend(pOne);
+
   });
-}
+  }}
 //taken from exercise 10
 function renderButtons() {
 
